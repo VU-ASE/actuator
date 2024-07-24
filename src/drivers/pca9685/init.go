@@ -176,6 +176,9 @@ func (pc *PCA9685Controller) SetChannelWithTrim(channel ActuationIndex, value fl
 func (pc *PCA9685Controller) AllOff() {
 	log.Info().Msg("Turning off all channels")
 	for i := ActuationIndex(0); i < 16; i++ {
-		pc.SetChannel(i, 0.5)
+		var err = pc.SetChannel(i, 0.5)
+		if err != nil {
+			log.Error().Err(err).Msg("Error turning all channels off")
+		}
 	}
 }
