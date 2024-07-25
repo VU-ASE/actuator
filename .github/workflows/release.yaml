@@ -11,6 +11,6 @@ permissions:
 
 jobs:
   release:
-    uses: VU-ASE/actions/.github/workflows/release.yml@main
+    uses: VU-ASE/actions/.github/workflows/release.yaml@main
     secrets:
       release_please_token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
