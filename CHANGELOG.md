@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/VU-ASE/actuator/compare/v1.0.3...v1.0.4) (2024-07-25)
+
+
+### Bug Fixes
+
+* damn typo ([6f789ac](https://github.com/VU-ASE/actuator/commit/6f789ac6c8e59ce07b1cdec777380f939189fa5c))
+
 ## [1.0.3](https://github.com/VU-ASE/actuator/compare/v1.0.2...v1.0.3) (2024-07-25)
 
 
