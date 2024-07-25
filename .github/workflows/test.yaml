@@ -1,4 +1,5 @@
 name: test
+
 on:
   push:
     branches-ignore:
@@ -13,4 +14,3 @@ jobs:
     uses: VU-ASE/actions/.github/workflows/test.yaml@main
     secrets:
       gh_pat: ${{ secrets.GH_PAT }}
-
