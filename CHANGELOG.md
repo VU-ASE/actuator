@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/VU-ASE/actuator/compare/v1.0.1...v1.0.2) (2024-07-25)
+
+
+### Bug Fixes
+
+* test ([1d794a1](https://github.com/VU-ASE/actuator/commit/1d794a112f08bcc4019e6e436350bd6193138e79))
+
 ## [1.0.1](https://github.com/VU-ASE/actuator/compare/v1.0.0...v1.0.1) (2024-07-25)
 
 
