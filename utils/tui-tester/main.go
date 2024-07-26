@@ -2,15 +2,14 @@
 package main
 
 //
-// todo: this psackage should be published as a separate package, that uses the serviceRunner to connecxt to the Actuator service
+// todo: this psackage should be published as a separate package, that uses the roverlib to connecxt to the Actuator service
 //
 
 import (
 	"strconv"
 	// "time"
 
-	pb_module_outputs "github.com/VU-ASE/pkg-CommunicationDefinitions/v2/packages/go/outputs"
-	// servicerunner "github.com/VU-ASE/pkg-ServiceRunner/src"
+	pb_module_outputs "github.com/VU-ASE/rovercom/packages/go/outputs"
 	"google.golang.org/protobuf/proto"
 
 	zmq "github.com/pebbe/zmq4"

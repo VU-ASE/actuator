@@ -3,14 +3,14 @@ module vu/ase/actuator
 go 1.21.6
 
 require (
-	github.com/VU-ASE/pkg-CommunicationDefinitions/v2 v2.22.0
-	github.com/VU-ASE/pkg-ServiceRunner/v2 v2.13.0
+	github.com/VU-ASE/rovercom v1.0.2
+	github.com/VU-ASE/roverlib v1.0.1
 	github.com/googolgl/go-i2c v0.1.1
 	github.com/googolgl/go-pca9685 v0.1.6
-	github.com/pebbe/zmq4 v1.2.10
+	github.com/pebbe/zmq4 v1.2.11
 	github.com/rivo/tview v0.0.0-20240101144852-b3bd1aa5e9f2
-	github.com/rs/zerolog v1.31.0 // direct
-	google.golang.org/protobuf v1.32.0
+	github.com/rs/zerolog v1.33.0 // direct
+	google.golang.org/protobuf v1.34.2
 )
 
 require (

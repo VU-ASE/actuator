@@ -5,15 +5,15 @@ import (
 	"vu/ase/actuator/src/handler"
 	"vu/ase/actuator/src/receiver"
 
-	pb_module_outputs "github.com/VU-ASE/pkg-CommunicationDefinitions/v2/packages/go/outputs"
-	pb_systemmanager_messages "github.com/VU-ASE/pkg-CommunicationDefinitions/v2/packages/go/systemmanager"
+	pb_core_messages "github.com/VU-ASE/rovercom/packages/go/core"
+	pb_module_outputs "github.com/VU-ASE/rovercom/packages/go/outputs"
 
-	servicerunner "github.com/VU-ASE/pkg-ServiceRunner/v2/src"
+	roverlib "github.com/VU-ASE/roverlib/src"
 	"github.com/rs/zerolog/log"
 )
 
 // The actual program
-func run(service servicerunner.ResolvedService, sysmanInfo servicerunner.SystemManagerInfo, tuningState *pb_systemmanager_messages.TuningState) error {
+func run(service roverlib.ResolvedService, sysmanInfo roverlib.SystemManagerInfo, tuningState *pb_core_messages.TuningState) error {
 	// Create all necessary queues
 	handlerQueue := make(chan *pb_module_outputs.ControllerOutput, 300) // all incoming messages that need to be processed still
 
@@ -25,37 +25,37 @@ func run(service servicerunner.ResolvedService, sysmanInfo servicerunner.SystemM
 	}
 
 	// Get the I2C bus number
-	i2cbus, err := servicerunner.GetTuningInt("i2c-bus", tuningState)
+	i2cbus, err := roverlib.GetTuningInt("i2c-bus", tuningState)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return err
 	}
 
-	servoTrim, err := servicerunner.GetTuningFloat("servo-trim", tuningState)
+	servoTrim, err := roverlib.GetTuningFloat("servo-trim", tuningState)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return err
 	}
 
-	servoScaler, err := servicerunner.GetTuningFloat("servo-scaler", tuningState)
+	servoScaler, err := roverlib.GetTuningFloat("servo-scaler", tuningState)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return err
 	}
 
-	enableDiff, err := servicerunner.GetTuningInt("electronic-diff", tuningState)
+	enableDiff, err := roverlib.GetTuningInt("electronic-diff", tuningState)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get electrical differential enable flag")
 		return err
 	}
 
-	trackWidth, err := servicerunner.GetTuningFloat("track-width", tuningState)
+	trackWidth, err := roverlib.GetTuningFloat("track-width", tuningState)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get track-width")
 		return err
 	}
 
-	fanCap, err := servicerunner.GetTuningInt("fan-cap", tuningState)
+	fanCap, err := roverlib.GetTuningInt("fan-cap", tuningState)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get fan-cap")
 		return err
@@ -82,17 +82,17 @@ func run(service servicerunner.ResolvedService, sysmanInfo servicerunner.SystemM
 	select {}
 }
 
-func onTuningState(tuningState *pb_systemmanager_messages.TuningState) {
+func onTuningState(tuningState *pb_core_messages.TuningState) {
 	log.Warn().Msg("Received new tuning state")
 
-	servoTrim, err := servicerunner.GetTuningFloat("servo-trim", tuningState)
+	servoTrim, err := roverlib.GetTuningFloat("servo-trim", tuningState)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return
 	}
 	handler.SetServoTrim(servoTrim)
 
-	servoScaler, err := servicerunner.GetTuningFloat("servo-scaler", tuningState)
+	servoScaler, err := roverlib.GetTuningFloat("servo-scaler", tuningState)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return
@@ -107,5 +107,5 @@ func onTerminate(sig os.Signal) {
 
 // Used to start the program with the correct arguments
 func main() {
-	servicerunner.Run(run, onTuningState, onTerminate, false)
+	roverlib.Run(run, onTuningState, onTerminate, false)
 }
