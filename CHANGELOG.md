@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/VU-ASE/actuator/compare/v1.0.4...v1.0.5) (2024-07-26)
+
+
+### Bug Fixes
+
+* using roverlib + rovercom ([e51cb38](https://github.com/VU-ASE/actuator/commit/e51cb385a9189188c15f6985513eb4d1f6c878f5))
+
 ## [1.0.4](https://github.com/VU-ASE/actuator/compare/v1.0.3...v1.0.4) (2024-07-25)
 
 
