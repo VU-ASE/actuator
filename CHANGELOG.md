@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/VU-ASE/actuator/compare/v1.0.5...v1.0.6) (2024-07-29)
+
+
+### Bug Fixes
+
+* coreInfo rename ([2edd966](https://github.com/VU-ASE/actuator/commit/2edd966e9b53cbfe2cf322beb7cf166e22688dcb))
+
 ## [1.0.5](https://github.com/VU-ASE/actuator/compare/v1.0.4...v1.0.5) (2024-07-26)
 
 
