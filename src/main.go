@@ -13,7 +13,7 @@ import (
 )
 
 // The actual program
-func run(service roverlib.ResolvedService, sysmanInfo roverlib.SystemManagerInfo, tuningState *pb_core_messages.TuningState) error {
+func run(service roverlib.ResolvedService, sysmanInfo roverlib.CoreInfo, tuningState *pb_core_messages.TuningState) error {
 	// Create all necessary queues
 	handlerQueue := make(chan *pb_module_outputs.ControllerOutput, 300) // all incoming messages that need to be processed still
 

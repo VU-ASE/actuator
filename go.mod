@@ -1,10 +1,10 @@
 module vu/ase/actuator
 
-go 1.21.6
+go 1.22.0
 
 require (
 	github.com/VU-ASE/rovercom v1.0.2
-	github.com/VU-ASE/roverlib v1.0.1
+	github.com/VU-ASE/roverlib v1.0.3
 	github.com/googolgl/go-i2c v0.1.1
 	github.com/googolgl/go-pca9685 v0.1.6
 	github.com/pebbe/zmq4 v1.2.11
