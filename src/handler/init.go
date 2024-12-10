@@ -14,10 +14,10 @@ var pca *pca9685.PCA9685Controller
 var handlerQueue Queue
 
 // OTA tunable parameters
-var servoScaler float32
-var servoTrim float32
+var servoScaler float64
+var servoTrim float64
 
-func Start(queue Queue, i2cbus uint, serScaler float32, serTrim float32, enableDiff int, trackWidth float32, fanCap int) {
+func Start(queue Queue, i2cbus uint, serScaler float64, serTrim float64, enableDiff int, trackWidth float64, fanCap int) {
 	servoScaler = serScaler
 	servoTrim = serTrim
 
@@ -58,26 +58,33 @@ func Start(queue Queue, i2cbus uint, serScaler float32, serTrim float32, enableD
 
 		// Apply the differential
 		if enableDiff == 1 {
-			msg.LeftThrottle, msg.RightThrottle = diff.GetDiff(msg.SteeringAngle, msg.LeftThrottle, msg.RightThrottle, trackWidth) // Call the GetDiff function from the imported package
+			l, r := diff.GetDiff(
+				float64(msg.SteeringAngle),
+				float64(msg.LeftThrottle),
+				float64(msg.RightThrottle),
+				trackWidth,
+			) // Call the GetDiff function from the imported package
+			msg.LeftThrottle = float32(l)
+			msg.RightThrottle = float32(r)
 		}
-		// log.Debug().Float32("steering angle", msg.SteeringAngle).Float32("left motor", msg.LeftThrottle).Float32("right motor", msg.RightThrottle).Msg("New message available")
+		// log.Debug().float64("steering angle", msg.SteeringAngle).float64("left motor", msg.LeftThrottle).float64("right motor", msg.RightThrottle).Msg("New message available")
 
 		// Process the message (let the drivers handle this)
-		pca.SetServo(float32(msg.SteeringAngle), servoScaler)
-		pca.SetLeftMotor(float32(msg.LeftThrottle))
-		pca.SetRightMotor(float32(msg.RightThrottle))
+		pca.SetServo(float64(msg.SteeringAngle), servoScaler)
+		pca.SetLeftMotor(float64(msg.LeftThrottle))
+		pca.SetRightMotor(float64(msg.RightThrottle))
 
 		// Apply fan cap to fan speed
-		fanSpeed := msg.FanSpeed * (float32(fanCap) / 100.0)
+		fanSpeed := float64(msg.FanSpeed) * (float64(fanCap) / 100.0)
 		pca.SetFan(fanSpeed)
 	}
 }
 
-func SetServoTrim(trim float32) {
+func SetServoTrim(trim float64) {
 	servoTrim = trim
 }
 
-func SetServoScaler(scaler float32) {
+func SetServoScaler(scaler float64) {
 	servoScaler = scaler
 }
 

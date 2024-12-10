@@ -1,61 +1,62 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"vu/ase/actuator/src/handler"
 	"vu/ase/actuator/src/receiver"
 
-	pb_core_messages "github.com/VU-ASE/rovercom/packages/go/core"
-	pb_module_outputs "github.com/VU-ASE/rovercom/packages/go/outputs"
+	pb_outputs "github.com/VU-ASE/rovercom/packages/go/outputs"
+	roverlib "github.com/VU-ASE/roverlib-go/src"
 
-	roverlib "github.com/VU-ASE/roverlib/src"
 	"github.com/rs/zerolog/log"
 )
 
 // The actual program
-func run(service roverlib.ResolvedService, sysmanInfo roverlib.CoreInfo, tuningState *pb_core_messages.TuningState) error {
+func run(service roverlib.Service, config *roverlib.ServiceConfiguration) error {
 	// Create all necessary queues
-	handlerQueue := make(chan *pb_module_outputs.ControllerOutput, 300) // all incoming messages that need to be processed still
+	handlerQueue := make(chan *pb_outputs.ControllerOutput, 300) // all incoming messages that need to be processed still
+
+	//
+	// Get input streams
+	//
 
 	// Get the address of the controller output publisher
-	controllerOutputAddr, err := service.GetDependencyAddress("controller", "decision")
-	if err != nil {
-		log.Error().Err(err).Msg("Failed to get address of controller output publisher")
-		return err
+	controllerOutput := service.GetReadStream("controller", "decision")
+
+	//
+	// Get configuration values
+	//
+	if config == nil {
+		return fmt.Errorf("No configuration provided")
 	}
 
-	// Get the I2C bus number
-	i2cbus, err := roverlib.GetTuningInt("i2c-bus", tuningState)
-	if err != nil {
-		log.Error().Err(err).Msg("Failed to get I2C bus number")
-		return err
-	}
-
-	servoTrim, err := roverlib.GetTuningFloat("servo-trim", tuningState)
+	i2cbus, err := config.GetIntSafe("i2c-bus")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return err
 	}
-
-	servoScaler, err := roverlib.GetTuningFloat("servo-scaler", tuningState)
+	servoTrim, err := config.GetFloatSafe("servo-trim")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return err
 	}
-
-	enableDiff, err := roverlib.GetTuningInt("electronic-diff", tuningState)
+	servoScaler, err := config.GetFloatSafe("servo-scaler")
+	if err != nil {
+		log.Error().Err(err).Msg("Failed to get I2C bus number")
+		return err
+	}
+	enableDiff, err := config.GetIntSafe("electronic-diff")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get electrical differential enable flag")
 		return err
 	}
-
-	trackWidth, err := roverlib.GetTuningFloat("track-width", tuningState)
+	trackWidth, err := config.GetFloatSafe("track-width")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get track-width")
 		return err
 	}
-
-	fanCap, err := roverlib.GetTuningInt("fan-cap", tuningState)
+	fanCap, err := config.GetIntSafe("fan-cap")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get fan-cap")
 		return err
@@ -74,7 +75,7 @@ func run(service roverlib.ResolvedService, sysmanInfo roverlib.CoreInfo, tuningS
 	}()
 	go func() {
 		for {
-			receiver.Start(controllerOutputAddr, handlerQueue)
+			receiver.Start(*controllerOutput, handlerQueue)
 		}
 	}()
 
@@ -82,30 +83,11 @@ func run(service roverlib.ResolvedService, sysmanInfo roverlib.CoreInfo, tuningS
 	select {}
 }
 
-func onTuningState(tuningState *pb_core_messages.TuningState) {
-	log.Warn().Msg("Received new tuning state")
-
-	servoTrim, err := roverlib.GetTuningFloat("servo-trim", tuningState)
-	if err != nil {
-		log.Error().Err(err).Msg("Failed to get I2C bus number")
-		return
-	}
-	handler.SetServoTrim(servoTrim)
-
-	servoScaler, err := roverlib.GetTuningFloat("servo-scaler", tuningState)
-	if err != nil {
-		log.Error().Err(err).Msg("Failed to get I2C bus number")
-		return
-	}
-	handler.SetServoScaler(servoScaler)
-}
-
-func onTerminate(sig os.Signal) {
-	log.Info().Msg("Received signal, terminating")
-	handler.OnTerminate()
+func onTerminate(sig os.Signal) error {
+	return nil
 }
 
 // Used to start the program with the correct arguments
 func main() {
-	roverlib.Run(run, onTuningState, onTerminate, false)
+	roverlib.Run(run, onTerminate)
 }

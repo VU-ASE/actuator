@@ -7,7 +7,7 @@ import (
 const servoLimiter = 0.8
 
 // Set the servo duty. In range -1 (left) to 1(right).
-func (pc *PCA9685Controller) SetServo(value float32, servoScaler float32) {
+func (pc *PCA9685Controller) SetServo(value float64, servoScaler float64) {
 	value = value * -servoLimiter
 	value = clamp(value)
 
@@ -26,12 +26,12 @@ func (pc *PCA9685Controller) SetServo(value float32, servoScaler float32) {
 	}
 }
 
-func (pc *PCA9685Controller) SetServoTrim(value float32) {
+func (pc *PCA9685Controller) SetServoTrim(value float64) {
 	pc.SetTrim(Steer, value)
 }
 
 // Set the left motor power. In range -1 to 1.
-func (pc *PCA9685Controller) SetLeftMotor(value float32) {
+func (pc *PCA9685Controller) SetLeftMotor(value float64) {
 	value = clamp(value)
 	value = (value + 1) / 2
 	err := pc.SetChannel(LeftThrottle, value)
@@ -41,7 +41,7 @@ func (pc *PCA9685Controller) SetLeftMotor(value float32) {
 }
 
 // Set right motor power. In range -1 to 1.
-func (pc *PCA9685Controller) SetRightMotor(value float32) {
+func (pc *PCA9685Controller) SetRightMotor(value float64) {
 	value = clamp(value)
 	value = (value + 1) / 2
 	err := pc.SetChannel(RightThrottle, value)
@@ -51,7 +51,7 @@ func (pc *PCA9685Controller) SetRightMotor(value float32) {
 }
 
 // Set fan power. In range 0 to 1
-func (pc *PCA9685Controller) SetFan(value float32) {
+func (pc *PCA9685Controller) SetFan(value float64) {
 	value = clamp(value)
 	err := pc.SetChannel(Fan, value)
 	if err != nil {
@@ -60,7 +60,7 @@ func (pc *PCA9685Controller) SetFan(value float32) {
 }
 
 // Private function to clamp a value between -1 and 1
-func clamp(value float32) float32 {
+func clamp(value float64) float64 {
 	if value > 1 {
 		return 1
 	}

@@ -19,7 +19,7 @@ const (
 	/* Add more actuation indices as needed */
 )
 
-const travelExtender float32 = 100.0
+const travelExtender float64 = 100.0
 
 // PCA9685Controller represents the PCA9685 controller
 type PCA9685Controller struct {
@@ -30,9 +30,9 @@ type PCA9685Controller struct {
 
 type channelConfig struct {
 	InUse        bool    /**< Is the channel in use? */
-	MinPulseFrac float32 /**< Min PWM Pulse frac */
-	MaxPulseFrac float32 /**< Max PWM Pulse frac */
-	Trim         float32 /**< What is the center? 1 == no trim */
+	MinPulseFrac float64 /**< Min PWM Pulse frac */
+	MaxPulseFrac float64 /**< Max PWM Pulse frac */
+	Trim         float64 /**< What is the center? 1 == no trim */
 }
 
 // NewPCA9685Controller creates a new PCA9685Controller instance
@@ -112,7 +112,7 @@ func (pc *PCA9685Controller) Close() {
 }
 
 // Update the frequency at index @p channel to @p value
-func (pc *PCA9685Controller) SetTrim(channel ActuationIndex, trim float32) {
+func (pc *PCA9685Controller) SetTrim(channel ActuationIndex, trim float64) {
 
 	// Get the value from the map
 	config, exists := pc.jumpTable[channel]
@@ -129,7 +129,7 @@ func (pc *PCA9685Controller) SetTrim(channel ActuationIndex, trim float32) {
 }
 
 // Update the frequency at index @p channel to @p value for the motors
-func (pc *PCA9685Controller) SetChannel(channel ActuationIndex, value float32) error {
+func (pc *PCA9685Controller) SetChannel(channel ActuationIndex, value float64) error {
 
 	// Calculate duty cycles range
 	minDuty := pc.jumpTable[channel].MinPulseFrac
@@ -141,7 +141,7 @@ func (pc *PCA9685Controller) SetChannel(channel ActuationIndex, value float32) e
 	return pc.pca.SetChannel(int(channel), 0, dutyCycle)
 }
 
-func abs(value float32) float32 {
+func abs(value float64) float64 {
 	if value < 0 {
 		return value * -1.0
 	}
@@ -149,14 +149,14 @@ func abs(value float32) float32 {
 }
 
 // Update the frequency at index @p channel to @p value using the trim value
-func (pc *PCA9685Controller) SetChannelWithTrim(channel ActuationIndex, value float32) error {
+func (pc *PCA9685Controller) SetChannelWithTrim(channel ActuationIndex, value float64) error {
 
 	// Calculate duty cycles range
 	trim := pc.jumpTable[channel].Trim
 	maxDuty := pc.jumpTable[channel].MaxPulseFrac
 	minDuty := pc.jumpTable[channel].MinPulseFrac
 
-	// log.Debug().Float32("trimBefore", trim).Float32("valueBefore", value).Msg("asdf")
+	// log.Debug().float64("trimBefore", trim).float64("valueBefore", value).Msg("asdf")
 
 	if trim > 0 {
 		maxDuty = maxDuty + (abs(trim) * travelExtender)
@@ -167,7 +167,7 @@ func (pc *PCA9685Controller) SetChannelWithTrim(channel ActuationIndex, value fl
 	dutyRange := maxDuty - minDuty
 	dutyCycle := int(minDuty + (dutyRange * value))
 
-	// log.Debug().Float32("trim", trim).Float32("value", value).Float32("dutyRange", dutyRange).Float32("maxDuty", maxDuty).Float32("minDuty", minDuty).Msg("SetChannelWithTrim")
+	// log.Debug().float64("trim", trim).float64("value", value).float64("dutyRange", dutyRange).float64("maxDuty", maxDuty).float64("minDuty", minDuty).Msg("SetChannelWithTrim")
 
 	return pc.pca.SetChannel(int(channel), 0, dutyCycle)
 }

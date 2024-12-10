@@ -3,49 +3,24 @@ package receiver
 import (
 	"vu/ase/actuator/src/handler"
 
-	pb_module_outputs "github.com/VU-ASE/rovercom/packages/go/outputs"
+	roverlib "github.com/VU-ASE/roverlib-go/src"
 
-	zmq "github.com/pebbe/zmq4"
 	"github.com/rs/zerolog/log"
-	"google.golang.org/protobuf/proto"
 )
 
 // Starts the receiver to listen for incoming messages
-func Start(address string, handlerQueue handler.Queue) {
-	subscriber, _ := zmq.NewSocket(zmq.SUB)
-	defer subscriber.Close()
-
-	err := subscriber.Connect(address)
-	if err != nil {
-		log.Error().Err(err).Msg("Failed to connect to zmq address")
-		return
-	}
-
-	err = subscriber.SetSubscribe("") // Subscribe to all messages
-	if err != nil {
-		log.Error().Err(err).Msg("Failed to subscribe to address")
-		return
-	}
+func Start(controllerOutput roverlib.ReadStream, handlerQueue handler.Queue) {
 
 	// Main receiver loop
 	for {
-		msg, err := subscriber.RecvBytes(0)
-		// Don't exit on errors but log them
+		msg, err := controllerOutput.Read()
 		if err != nil {
-			log.Err(err).Msg("Error while receiving message")
-			continue
-		}
-
-		// Decode the sensor message
-		sensorMsg := pb_module_outputs.SensorOutput{}
-		err = proto.Unmarshal(msg, &sensorMsg)
-		if err != nil {
-			log.Err(err).Msg("Error while decoding message")
+			log.Error().Err(err).Msg("Failed to read message")
 			continue
 		}
 
 		// Get controller data from the message
-		controllerData := sensorMsg.GetControllerOutput()
+		controllerData := msg.GetControllerOutput()
 		if controllerData == nil {
 			log.Error().Msg("Received message without controller data")
 			continue

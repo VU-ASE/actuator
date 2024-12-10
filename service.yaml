@@ -1,35 +1,36 @@
-# Service definition
 name: actuator
+author: vu-ase
+source: https://github.com/vu-ase/actuator
+version: 1.0.0
 description: Controls the motors, servo, lights, and a fan?
 
-# Depends on the controller output
-dependencies:
-  - service: controller
-    output: decision
+commands:
+  build: make build 
+  run: ./bin/actuator
 
-# No outputs
+inputs:
+  - service: controller
+    streams:
+      - decision
+
 outputs: []
 
-# Runtime options
-options:
+configuration:
   - name: i2c-bus
     type: int
-    mutable: false # don't allow OTA changes
+    mutable: false
     default: 3
 
   - name: electronic-diff
     type: int
     mutable: false
-    default: 1 # 1 is enabled, 0 disabled
+    default: 1
 
   - name: track-width
     type: float
     mutable: false
     default: 60.0
 
-  # This value is used to scale the travel of the servo to its full range.
-  # The current value of 1.0 is sufficient for students, however it can be
-  # increased/decreased to change range
   - name: servo-scaler
     type: float
     mutable: true
@@ -37,12 +38,10 @@ options:
 
   - name: servo-trim
     type: float
-    mutable: true # This value is to be set once and then not updated
+    mutable: true
     default: 0
-    # 0 is center, positive is right, negative is left
+
   - name: fan-cap
     type: int
     mutable: false
-    default: 100 # the fan can spin at 100% speed
-
- 
+    default: 100

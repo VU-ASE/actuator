@@ -4,7 +4,7 @@ import (
 	"math"
 )
 
-func calculateMotorAngle(steerVal float32, throttle float32, trackWidth float32) (float32, float32) {
+func calculateMotorAngle(steerVal float64, throttle float64, trackWidth float64) (float64, float64) {
 	dr := trackWidth // Distance between the centre of the rear tires
 	if steerVal == 0 {
 		return throttle, throttle
@@ -12,7 +12,7 @@ func calculateMotorAngle(steerVal float32, throttle float32, trackWidth float32)
 
 	delta := math.Abs(float64(steerVal)) * 50
 
-	innerRadius := 20 / float32(math.Tan(delta*math.Pi/180))
+	innerRadius := 20 / float64(math.Tan(delta*math.Pi/180))
 	outerRadius := innerRadius + dr
 
 	adjustedThrottle := (innerRadius / outerRadius) * throttle
@@ -28,7 +28,7 @@ func calculateMotorAngle(steerVal float32, throttle float32, trackWidth float32)
 	return adjustedThrottle, throttle
 }
 
-func GetDiff(steeringAngle float32, leftThrottle float32, rightThrottle float32, trackWidth float32) (float32, float32) {
+func GetDiff(steeringAngle float64, leftThrottle float64, rightThrottle float64, trackWidth float64) (float64, float64) {
 
 	if steeringAngle < 0.0 {
 		// going left so make sure right wheel stays same
