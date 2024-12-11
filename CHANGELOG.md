@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/VU-ASE/actuator/compare/v1.0.5...v1.1.0) (2024-12-10)
+
+
+### Features
+
+* compliant with roverlib-go v1.1.7 ([d061c21](https://github.com/VU-ASE/actuator/commit/d061c2165cb55320aa9a501be74ea1c3d2b7cc71))
+
+
+### Bug Fixes
+
+* coreInfo rename ([2edd966](https://github.com/VU-ASE/actuator/commit/2edd966e9b53cbfe2cf322beb7cf166e22688dcb))
+
 ## [1.0.5](https://github.com/VU-ASE/actuator/compare/v1.0.4...v1.0.5) (2024-07-26)
 
 
