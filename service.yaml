@@ -5,7 +5,7 @@ version: 1.0.0
 description: Controls the motors, servo, lights, and a fan?
 
 commands:
-  build: make build 
+  build: make build
   run: ./bin/actuator
 
 inputs:
@@ -17,31 +17,31 @@ outputs: []
 
 configuration:
   - name: i2c-bus
-    type: int
-    mutable: false
-    default: 3
+    type: float
+    tunable: false
+    value: 3
 
   - name: electronic-diff
-    type: int
-    mutable: false
-    default: 1
+    type: float
+    tunable: false
+    value: 1
 
   - name: track-width
     type: float
-    mutable: false
-    default: 60.0
+    tunable: false
+    value: 60.0
 
   - name: servo-scaler
     type: float
-    mutable: true
-    default: 1
+    tunable: true
+    value: 1
 
   - name: servo-trim
     type: float
-    mutable: true
-    default: 0
+    tunable: true
+    value: 0
 
   - name: fan-cap
-    type: int
-    mutable: false
-    default: 100
+    type: float
+    tunable: false
+    value: 100
