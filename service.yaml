@@ -18,30 +18,30 @@ outputs: []
 configuration:
   - name: itwoc-bus
     type: number
-    mutable: false
+    tunable: false
     value: 3
 
   - name: electronic-diff
     type: number
-    mutable: false
+    tunable: false
     value: 1
 
   - name: track-width
     type: number
-    mutable: false
+    tunable: false
     value: 60
 
   - name: servo-scaler
     type: number
-    mutable: true
+    tunable: true
     value: 1
 
   - name: servo-trim
     type: number
-    mutable: true
+    tunable: true
     value: 0
 
   - name: fan-cap
     type: number
-    mutable: false
+    tunable: false
     value: 100
