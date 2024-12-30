@@ -3,8 +3,7 @@ module vu/ase/actuator
 go 1.22.0
 
 require (
-	github.com/VU-ASE/rovercom v1.4.2
-	github.com/VU-ASE/roverlib v1.0.3
+	github.com/VU-ASE/rovercom v1.5.1
 	github.com/googolgl/go-i2c v0.1.1
 	github.com/googolgl/go-pca9685 v0.1.6
 	github.com/pebbe/zmq4 v1.2.11
@@ -13,12 +12,11 @@ require (
 	google.golang.org/protobuf v1.34.2
 )
 
+require github.com/VU-ASE/roverlib-go v1.2.0
+
 require (
-	github.com/VU-ASE/roverlib-go v1.1.7 // indirect
 	github.com/gdamore/encoding v1.0.0 // indirect
 	github.com/gdamore/tcell/v2 v2.6.1-0.20231203215052-2917c3801e73 // indirect
-	github.com/go-yaml/yaml v2.1.0+incompatible // indirect
-	github.com/kr/pretty v0.3.1 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

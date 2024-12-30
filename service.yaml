@@ -16,32 +16,32 @@ inputs:
 outputs: []
 
 configuration:
-  - name: communication-bus
-    type: float
-    tunable: false
+  - name: itwoc-bus
+    type: number
+    mutable: false
     value: 3
 
   - name: electronic-diff
-    type: float
-    tunable: false
+    type: number
+    mutable: false
     value: 1
 
   - name: track-width
-    type: float
-    tunable: false
-    value: 60.0
+    type: number
+    mutable: false
+    value: 60
 
   - name: servo-scaler
-    type: float
-    tunable: true
+    type: number
+    mutable: true
     value: 1
 
   - name: servo-trim
-    type: float
-    tunable: true
+    type: number
+    mutable: true
     value: 0
 
   - name: fan-cap
-    type: float
-    tunable: false
+    type: number
+    mutable: false
     value: 100
