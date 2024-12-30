@@ -16,32 +16,32 @@ inputs:
 outputs: []
 
 configuration:
-  - name: i2c-bus
-    type: int
+  - name: itwoc-bus
+    type: number
     mutable: false
-    default: 3
+    value: 3
 
   - name: electronic-diff
-    type: int
+    type: number
     mutable: false
-    default: 1
+    value: 1
 
   - name: track-width
-    type: float
+    type: number
     mutable: false
-    default: 60.0
+    value: 60
 
   - name: servo-scaler
-    type: float
+    type: number
     mutable: true
-    default: 1
+    value: 1
 
   - name: servo-trim
-    type: float
+    type: number
     mutable: true
-    default: 0
+    value: 0
 
   - name: fan-cap
-    type: int
+    type: number
     mutable: false
-    default: 100
+    value: 100

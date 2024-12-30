@@ -17,7 +17,7 @@ var handlerQueue Queue
 var servoScaler float64
 var servoTrim float64
 
-func Start(queue Queue, i2cbus uint, serScaler float64, serTrim float64, enableDiff int, trackWidth float64, fanCap int) {
+func Start(queue Queue, i2cbus uint, serScaler float64, serTrim float64, enableDiff bool, trackWidth float64, fanCap int) {
 	servoScaler = serScaler
 	servoTrim = serTrim
 
@@ -57,7 +57,7 @@ func Start(queue Queue, i2cbus uint, serScaler float64, serTrim float64, enableD
 		lastMessageTime = time.Now()
 
 		// Apply the differential
-		if enableDiff == 1 {
+		if enableDiff {
 			l, r := diff.GetDiff(
 				float64(msg.SteeringAngle),
 				float64(msg.LeftThrottle),

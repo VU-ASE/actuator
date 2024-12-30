@@ -31,11 +31,12 @@ func run(service roverlib.Service, config *roverlib.ServiceConfiguration) error 
 		return fmt.Errorf("No configuration provided")
 	}
 
-	i2cbus, err := config.GetIntSafe("i2c-bus")
+	i2cbusFloat, err := config.GetFloatSafe("itwoc-bus")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return err
 	}
+	i2cbus := uint(i2cbusFloat)
 	servoTrim, err := config.GetFloatSafe("servo-trim")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
@@ -46,21 +47,23 @@ func run(service roverlib.Service, config *roverlib.ServiceConfiguration) error 
 		log.Error().Err(err).Msg("Failed to get I2C bus number")
 		return err
 	}
-	enableDiff, err := config.GetIntSafe("electronic-diff")
+	enableDiffFloat, err := config.GetFloatSafe("electronic-diff")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get electrical differential enable flag")
 		return err
 	}
+	enableDiff := int(enableDiffFloat) != 0
 	trackWidth, err := config.GetFloatSafe("track-width")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get track-width")
 		return err
 	}
-	fanCap, err := config.GetIntSafe("fan-cap")
+	fanCapFloat, err := config.GetFloatSafe("fan-cap")
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to get fan-cap")
 		return err
 	}
+	fanCap := int(fanCapFloat)
 	if fanCap < 0 {
 		fanCap = 0
 	} else if fanCap > 100 {
@@ -70,7 +73,7 @@ func run(service roverlib.Service, config *roverlib.ServiceConfiguration) error 
 	// Start all goroutines in a self-restarting way
 	go func() {
 		for {
-			handler.Start(handlerQueue, uint(i2cbus), servoScaler, servoTrim, enableDiff, trackWidth, fanCap)
+			handler.Start(handlerQueue, i2cbus, servoScaler, servoTrim, enableDiff, trackWidth, fanCap)
 		}
 	}()
 	go func() {
