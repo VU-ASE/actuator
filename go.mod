@@ -12,7 +12,7 @@ require (
 	google.golang.org/protobuf v1.34.2
 )
 
-require github.com/VU-ASE/roverlib-go v1.2.0
+require github.com/VU-ASE/roverlib-go v1.2.1
 
 require (
 	github.com/gdamore/encoding v1.0.0 // indirect
