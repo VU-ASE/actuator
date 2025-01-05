@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/VU-ASE/actuator/compare/v1.2.0...v1.2.1) (2025-01-05)
+
+
+### Bug Fixes
+
+* build without linting ([6c56a1a](https://github.com/VU-ASE/actuator/commit/6c56a1a1539e20b708cd0a8c9bdf7754e210fcf2))
+
 ## [1.2.0](https://github.com/VU-ASE/actuator/compare/v1.1.2...v1.2.0) (2025-01-05)
 
 
