@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/VU-ASE/actuator/compare/v1.2.1...v1.2.2) (2025-01-05)
+
+
+### Bug Fixes
+
+* don't wait for PCA board flush on terminate ([63079e9](https://github.com/VU-ASE/actuator/commit/63079e9ff737ba4c3e479e02baf175b6307bb77b))
+
 ## [1.2.1](https://github.com/VU-ASE/actuator/compare/v1.2.0...v1.2.1) (2025-01-05)
 
 
