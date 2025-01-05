@@ -1,3 +1,10 @@
-# actuator
+<h1 align="center"><code>actuator</code> service</h1>
+<div align="center">
+  <a href="https://github.com/VU-ASE/actuator/releases/latest">Latest release</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="https://ase.vu.nl/docs/category/actuator">Documentation</a>
+  <br />
+</div>
+<br/>
 
-To use this module, check out its docs [here](https://docs.ase.vu.nl/docs/framework/services/actuator/).
+**The `actuator` service reads in actuator decisions (controller outputs) and turns it into hardware signals to steer motors, servo and a fan?**
