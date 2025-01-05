@@ -14,6 +14,7 @@ import (
 
 // The actual program
 func run(service roverlib.Service, config *roverlib.ServiceConfiguration) error {
+	log.Info().Msg("Starting actuator")
 	// Create all necessary queues
 	handlerQueue := make(chan *pb_outputs.ControllerOutput, 300) // all incoming messages that need to be processed still
 
@@ -87,6 +88,7 @@ func run(service roverlib.Service, config *roverlib.ServiceConfiguration) error 
 }
 
 func onTerminate(sig os.Signal) error {
+	log.Info().Str("signal", sig.String()).Msg("Received signal, terminating")
 	handler.OnTerminate()
 	return nil
 }

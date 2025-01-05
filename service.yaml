@@ -1,7 +1,7 @@
 name: actuator
 author: vu-ase
 source: https://github.com/vu-ase/actuator
-version: 1.0.0
+version: 1.0.10
 description: Controls the motors, servo, lights, and a fan?
 
 commands:

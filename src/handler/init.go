@@ -42,7 +42,7 @@ func Start(queue Queue, i2cbus uint, serScaler float64, serTrim float64, enableD
 			if time.Since(lastMessageTime) > MSG_TIMEOUT {
 				pca.AllOff()
 				pca.SetFan(0)
-				log.Warn().Msg("No message received for 500ms, stopping motors")
+				// log.Warn().Msg("No message received for 500ms, stopping motors")
 			}
 			time.Sleep(MSG_TIMEOUT)
 		}
@@ -89,14 +89,17 @@ func SetServoScaler(scaler float64) {
 }
 
 func OnTerminate() {
+	log.Info().Msg("Requested handler to terminate")
 	if pca == nil {
+		log.Warn().Msg("Handler not running, nothing to terminate")
 		return
 	}
 
 	handlerQueue = nil // Stop receiving messages, and wait for the last message to be processed
-	time.Sleep(50 * time.Millisecond)
+	// time.Sleep(50 * time.Millisecond)
 	pca.AllOff()
 	pca.SetFan(0)
 	pca.Close()
-	time.Sleep(400 * time.Millisecond) // Wait for I2C to finish (I guess buffer flush?)
+	// time.Sleep(400 * time.Millisecond) // Wait for I2C to finish (I guess buffer flush?)
+	log.Info().Msg("Handler terminated")
 }
