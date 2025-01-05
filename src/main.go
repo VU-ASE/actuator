@@ -87,6 +87,7 @@ func run(service roverlib.Service, config *roverlib.ServiceConfiguration) error 
 }
 
 func onTerminate(sig os.Signal) error {
+	handler.OnTerminate()
 	return nil
 }
 
