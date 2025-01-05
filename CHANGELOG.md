@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/VU-ASE/actuator/compare/v1.1.2...v1.2.0) (2025-01-05)
+
+
+### Features
+
+* devcontainer + onterminate ([14c8c0c](https://github.com/VU-ASE/actuator/commit/14c8c0cabf2ed7d82ecc118b77793cf341471e62))
+* fully working on the Rover ([bc4f597](https://github.com/VU-ASE/actuator/commit/bc4f5976f91ec73bff64f021ca3ccc2d15b48a43))
+* tuning support ([7ec43f2](https://github.com/VU-ASE/actuator/commit/7ec43f2a1d5097db4ebabddfacab223983ef053f))
+
 ## [1.1.2](https://github.com/VU-ASE/actuator/compare/v1.1.1...v1.1.2) (2024-12-11)
 
 
