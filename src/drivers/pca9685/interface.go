@@ -6,7 +6,7 @@ import (
 
 const servoLimiter = 0.8
 
-// Set the servo duty. In range -1 (left) to 1(right).
+// Set the servo duty. In range -1 (right) to 1(left).
 func (pc *PCA9685Controller) SetServo(value float64, servoScaler float64) {
 	value = value * -servoLimiter
 	value = clamp(value)
@@ -18,7 +18,7 @@ func (pc *PCA9685Controller) SetServo(value float64, servoScaler float64) {
 		value = value * servoScaler
 	}
 
-	value = ((value + 1) / 2)
+	value = -((value + 1) / 2)
 
 	err := pc.SetChannelWithTrim(Steer, value)
 	if err != nil {
