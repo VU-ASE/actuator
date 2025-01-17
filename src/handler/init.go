@@ -34,27 +34,12 @@ func Start(queue Queue, i2cbus uint, serScaler float64, serTrim float64, enableD
 	// Apply the servo trim
 	pca.SetServoTrim(servoTrim)
 
-	// Keep track of when the last message was received
-	// if this was more than .5 seconds ago, we should stop the motors
-	lastMessageTime := time.Now()
-	go func() {
-		for {
-			if time.Since(lastMessageTime) > MSG_TIMEOUT {
-				pca.AllOff()
-				pca.SetFan(0)
-				// log.Warn().Msg("No message received for 500ms, stopping motors")
-			}
-			time.Sleep(MSG_TIMEOUT)
-		}
-	}()
-
 	for {
 		// Receive the pointer to the next message
 		msg := <-handlerQueue
 		if msg == nil {
 			continue
 		}
-		lastMessageTime = time.Now()
 
 		// Apply the differential
 		if enableDiff {
