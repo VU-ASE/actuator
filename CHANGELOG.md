@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/VU-ASE/actuator/compare/v1.2.2...v1.3.0) (2025-01-17)
+
+
+### Features
+
+* remove auto-shutdown safety feature ([86ea696](https://github.com/VU-ASE/actuator/commit/86ea696c45d911f09f2981414cb8ce472daadaec))
+
 ## [1.2.2](https://github.com/VU-ASE/actuator/compare/v1.2.1...v1.2.2) (2025-01-05)
 
 
