@@ -7,4 +7,4 @@
 </div>
 <br/>
 
-**The `actuator` service reads in actuator decisions (controller outputs) and turns it into hardware signals to steer motors, servo and a fan?**
+**The `actuator` service reads in actuator decisions (controller outputs) and turns it into hardware signals to steer motors and servo**
