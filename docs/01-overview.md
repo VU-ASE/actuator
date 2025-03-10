@@ -1,0 +1,3 @@
+# Overview
+
+The `actuator` is the service that converts commands passed from another service into the actual movement of the rover. This service reads in actuator decisions (controller outputs) and turns it into hardware signals to steer motors and servo. It takes `decision` stream as input from the controller (or any other service) and does not produce an output stream. It instead passes the commands down directly to hardware. 
