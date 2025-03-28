@@ -31,13 +31,8 @@ actuatorOutput.Write(
 ## Configuration values
 
 1. **itwoc-bus** - the number of the I2C bus, reserved entirely for the motors, as well as the servo. [More details](https://ase.vu.nl/docs/framework/hardware/Components/carrier-board)
-
 2. **electronic-diff** - takes a boolean value to decide whether or not to slow down the inner wheel while taking a turn. This essentially creates an illusion of a [differential](https://en.wikipedia.org/wiki/Differential_(mechanical_device)).
-
 3. **track-width** - currently unused parameter, previously used for development and setting up the correct values in the **locking-diff**, should not be altered.
-
 4. **servo-scaler** - increases or decreases the total movement range of the servo. Takes a value as a percentage, `1` is `100%` of a standard range. If you wish to increase the range to e.x. `150%`, you would set the value to `1.5`; to decrease to e.x. `90%`, choose value of `0.9`
-
 5. **servo-trim** - used to calibrate the neutral position of the front wheels. Positive values will make the servo steer towards the right in the neutral position, negative - to the left. 
-
 6. **fan-cap** - legacy value, currently not used.
