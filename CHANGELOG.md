@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/VU-ASE/actuator/compare/v1.3.1...v1.3.2) (2025-03-31)
+
+
+### Bug Fixes
+
+* sero trim works ([a5be998](https://github.com/VU-ASE/actuator/commit/a5be998b9e77a3ff1551acc90751c68f8b0e112b))
+
 ## [1.3.1](https://github.com/VU-ASE/actuator/compare/v1.3.0...v1.3.1) (2025-03-29)
 
 
