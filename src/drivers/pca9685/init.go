@@ -63,9 +63,9 @@ func NewPCA9685Controller(address uint8, bus uint) (*PCA9685Controller, error) {
 	jumpTable := map[ActuationIndex]channelConfig{
 		ActuationIndex(Steer): {
 			InUse:        true,
-			MinPulseFrac: 225,
-			MaxPulseFrac: 385,
-			Trim:         1,
+			MinPulseFrac: 205, // 1ms up
+			MaxPulseFrac: 410, // 2ms up
+			Trim:         0,
 		},
 		ActuationIndex(LeftThrottle): {
 			InUse:        true,
@@ -146,30 +146,6 @@ func abs(value float64) float64 {
 		return value * -1.0
 	}
 	return value
-}
-
-// Update the frequency at index @p channel to @p value using the trim value
-func (pc *PCA9685Controller) SetChannelWithTrim(channel ActuationIndex, value float64) error {
-
-	// Calculate duty cycles range
-	trim := pc.jumpTable[channel].Trim
-	maxDuty := pc.jumpTable[channel].MaxPulseFrac
-	minDuty := pc.jumpTable[channel].MinPulseFrac
-
-	// log.Debug().float64("trimBefore", trim).float64("valueBefore", value).Msg("asdf")
-
-	if trim > 0 {
-		maxDuty = maxDuty + (abs(trim) * travelExtender)
-	} else if trim < 0 {
-		minDuty = minDuty - (abs(trim) * travelExtender)
-	}
-
-	dutyRange := maxDuty - minDuty
-	dutyCycle := int(minDuty + (dutyRange * value))
-
-	// log.Debug().float64("trim", trim).float64("value", value).float64("dutyRange", dutyRange).float64("maxDuty", maxDuty).float64("minDuty", minDuty).Msg("SetChannelWithTrim")
-
-	return pc.pca.SetChannel(int(channel), 0, dutyCycle)
 }
 
 // AllOff sets all channels to their midpoints)

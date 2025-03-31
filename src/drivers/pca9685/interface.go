@@ -8,22 +8,29 @@ const servoLimiter = 0.8
 
 // Set the servo duty. In range -1 (left) to 1(right).
 func (pc *PCA9685Controller) SetServo(value float64, servoScaler float64) {
-	value = value * -servoLimiter
+	// value = value * -servoLimiter
 	value = clamp(value)
 
-	trim := pc.jumpTable[Steer].Trim
-	if trim != 0 {
-		value = value * abs(1.0-(trim*0.75)) * servoScaler
-	} else {
-		value = value * servoScaler
-	}
+	// Calculate the duty cycle range
+	maxDuty := pc.jumpTable[Steer].MaxPulseFrac
+	minDuty := pc.jumpTable[Steer].MinPulseFrac
+	dutyRange := maxDuty - minDuty
 
-	value = ((value + 1) / 2)
+	// This gets added or subtracted from the midpoint
+	halfRange := dutyRange / 2.0
 
-	err := pc.SetChannelWithTrim(Steer, value)
-	if err != nil {
-		log.Error().Err(err).Msg("Error setting Steer value")
-	}
+	// We do not want to "oversteer" the servo, which might damage it
+	// so we limit the range
+	halfRange *= servoScaler
+
+	// Find the center of the range
+	center := minDuty + (dutyRange / 2.0)
+	servoTrim := pc.jumpTable[Steer].Trim
+
+	// Calculate the new duty cycle
+	// (due to an annoying convention, we do - right and + left)
+	dutyCycle := int(center - (halfRange * (value - servoTrim)))
+	pc.pca.SetChannel(int(Steer), 0, dutyCycle)
 }
 
 func (pc *PCA9685Controller) SetServoTrim(value float64) {
