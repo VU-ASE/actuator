@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.3](https://github.com/VU-ASE/actuator/compare/v1.3.2...v1.3.3) (2025-06-05)
+
+
+### Bug Fixes
+
+* golangci-lint needed a flag ([97d9045](https://github.com/VU-ASE/actuator/commit/97d9045e3c1e0656cb79630f1857448cadd10ce6))
+* removed unused variables and functions, added error check ([111b858](https://github.com/VU-ASE/actuator/commit/111b8588919d1da0622c5a60b8272ec5457f45af))
+* test ci ([14d0be1](https://github.com/VU-ASE/actuator/commit/14d0be1b47d75be2703490d462562834a1d612cc))
+
 ## [1.3.2](https://github.com/VU-ASE/actuator/compare/v1.3.1...v1.3.2) (2025-03-31)
 
 
