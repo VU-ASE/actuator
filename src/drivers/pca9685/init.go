@@ -19,8 +19,6 @@ const (
 	/* Add more actuation indices as needed */
 )
 
-const travelExtender float64 = 100.0
-
 // PCA9685Controller represents the PCA9685 controller
 type PCA9685Controller struct {
 	i2cBus    *i2c.Options
@@ -139,13 +137,6 @@ func (pc *PCA9685Controller) SetChannel(channel ActuationIndex, value float64) e
 	dutyCycle := int(minDuty + (dutyRange * value))
 
 	return pc.pca.SetChannel(int(channel), 0, dutyCycle)
-}
-
-func abs(value float64) float64 {
-	if value < 0 {
-		return value * -1.0
-	}
-	return value
 }
 
 // AllOff sets all channels to their midpoints)

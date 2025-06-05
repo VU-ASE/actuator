@@ -4,11 +4,9 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-const servoLimiter = 0.8
 
 // Set the servo duty. In range -1 (left) to 1(right).
-func (pc *PCA9685Controller) SetServo(value float64, servoScaler float64) {
-	// value = value * -servoLimiter
+func (pc *PCA9685Controller) SetServo(value float64, servoScaler float64) (err error)  {
 	value = clamp(value)
 
 	// Calculate the duty cycle range
@@ -30,7 +28,7 @@ func (pc *PCA9685Controller) SetServo(value float64, servoScaler float64) {
 	// Calculate the new duty cycle
 	// (due to an annoying convention, we do - right and + left)
 	dutyCycle := int(center - (halfRange * (value - servoTrim)))
-	pc.pca.SetChannel(int(Steer), 0, dutyCycle)
+	return pc.pca.SetChannel(int(Steer), 0, dutyCycle)
 }
 
 func (pc *PCA9685Controller) SetServoTrim(value float64) {

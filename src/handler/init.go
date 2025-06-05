@@ -55,7 +55,9 @@ func Start(queue Queue, i2cbus uint, serScaler float64, serTrim float64, enableD
 		// log.Debug().float64("steering angle", msg.SteeringAngle).float64("left motor", msg.LeftThrottle).float64("right motor", msg.RightThrottle).Msg("New message available")
 
 		// Process the message (let the drivers handle this)
-		pca.SetServo(float64(msg.SteeringAngle), servoScaler)
+		if pca.SetServo(float64(msg.SteeringAngle), servoScaler) != nil {
+			log.Error().Err(err).Msg("Error setting the servo value")
+		}
 		pca.SetLeftMotor(float64(msg.LeftThrottle))
 		pca.SetRightMotor(float64(msg.RightThrottle))
 
