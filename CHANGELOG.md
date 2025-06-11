@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/VU-ASE/actuator/compare/v1.3.3...v1.4.0) (2025-06-11)
+
+
+### Features
+
+* added pr even trigger for build-and-upload action ([dee6208](https://github.com/VU-ASE/actuator/commit/dee6208a16157120ec95610c963db5aa3a195f9b))
+
+
+### Bug Fixes
+
+* release-please PR eternally expected ([ab99a40](https://github.com/VU-ASE/actuator/commit/ab99a40bd5a3ed38e0ab7444a3ad1e8545623059))
+
 ## [1.3.3](https://github.com/VU-ASE/actuator/compare/v1.3.2...v1.3.3) (2025-06-05)
 
 
