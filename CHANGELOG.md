@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/VU-ASE/actuator/compare/v1.4.0...v2.0.0) (2025-07-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* update to rovercom v2
+
+### Features
+
+* update to rovercom v2 ([76a7bd2](https://github.com/VU-ASE/actuator/commit/76a7bd21050579e85d44358679fa245cea127c75))
+
 ## [1.4.0](https://github.com/VU-ASE/actuator/compare/v1.3.3...v1.4.0) (2025-06-11)
 
 
