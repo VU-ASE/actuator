@@ -3,7 +3,7 @@ package receiver
 import (
 	"vu/ase/actuator/src/handler"
 
-	roverlib "github.com/VU-ASE/roverlib-go/src"
+	roverlib "github.com/VU-ASE/roverlib-go/v2/src"
 
 	"github.com/rs/zerolog/log"
 )
