@@ -7,4 +7,4 @@
 </div>
 <br/>
 
-**The `actuator` service reads in actuator decisions (controller outputs) and turns it into hardware signals to steer motors and servo**
+**This repository houses the `actuator` [service](https://ase.vu.nl/docs/framework/glossary/service), which can be used in a [pipeline](https://ase.vu.nl/docs/framework/glossary/pipeline) on an ASE Rover. To get started, take a look at its [documentation](https://ase.vu.nl/docs/category/actuator)**
